@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,11 @@ public class AccountRestController {
         }else {
             throw new RuntimeException("refresh token required!!");
         }
+    }
+
+    @GetMapping(path = "/profile")
+    public AppUser profile(Principal principal){
+        return accountService.loadUserByUsername(principal.getName());
     }
 }
 
